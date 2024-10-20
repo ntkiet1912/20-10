@@ -76,6 +76,12 @@
       showPopup();
     }
   });
+    document.addEventListener('click', function(event) {
+    // Nếu đang nhấp vào phần tử của SweetAlert (có lớp .swal-overlay)
+    if (event.target.closest('.swal-overlay')) {
+      event.stopPropagation(); // Ngăn chặn sự kiện click truyền xuống body
+    }
+  });
 </script>
     <div class="night"></div>
     <div class="happy-woman-day">𝓗𝓪𝓹𝓹𝔂 𝔀𝓸𝓶𝓮𝓷'𝓼 𝓭𝓪𝔂 2️⃣0️⃣/1️⃣0️⃣</div>
