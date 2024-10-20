@@ -54,14 +54,13 @@
       },
     }).then(() => {
       popupOpen = false; // Đặt lại trạng thái khi hộp thư đóng
-      document.body.addEventListener('click', handleBodyClick, { once: true }); // Kích hoạt lại sự kiện click body
     });
   }
 
   // Hàm xử lý khi nhấp vào body
-  function handleBodyClick(event) {
+  document.body.addEventListener('click', function(event) {
     // Kiểm tra nếu click nằm ngoài SweetAlert (không nằm trong lớp swal-overlay)
-    if (!popupOpen && !event.target.closest('.swal-overlay')) {
+    if (!popupOpen && !event.target.closest('.swal-modal') && !event.target.closest('.swal-overlay')) {
       // Phát nhạc nếu chưa phát
       var audio = document.getElementById("myAudio");
       if (!played) {
@@ -76,10 +75,7 @@
       // Hiển thị popup SweetAlert
       showPopup();
     }
-  }
-
-  // Kích hoạt sự kiện click vào body
-  document.body.addEventListener('click', handleBodyClick, { once: true });
+  });
 </script>
     <div class="night"></div>
     <div class="happy-woman-day">𝓗𝓪𝓹𝓹𝔂 𝔀𝓸𝓶𝓮𝓷'𝓼 𝓭𝓪𝔂 2️⃣0️⃣/1️⃣0️⃣</div>
