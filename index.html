@@ -40,29 +40,42 @@
 </audio>
 
 <script>
-  var played = false; // Biến kiểm soát trạng thái phát nhạc
+ var played = false; // Biến kiểm soát trạng thái phát nhạc
+  var popupOpen = false; // Biến kiểm soát trạng thái của SweetAlert
 
-  // Phát nhạc và hiển thị thông báo khi nhấp vào màn hình
-  document.body.addEventListener('click', function() {
+  // Hàm hiển thị hộp thư SweetAlert
+  function showPopup() {
+    popupOpen = true;
+    swal({
+      title: "Hôm nay là ngày 20/10 💐", // Tiêu đề của popup
+      text: "Anh chúc em , cô gái của anh có một ngày lễ 20/10 thật vui vẻ và hạnh phúc cùng anh ,ngày càng xinh đẹp và luôn cười tươi nhé , cầu mong những điều tốt đẹp nhất sẽ đến với chúng ta .\n Em phải nhớ là không được bỏ bữa , ngủ sớm và học thiệt tốt . \n Em iu cụa anh , chúc em tất cả ✨ ", // Nội dung lời nhắn
+      button: {
+        text: "❤️️", // Nút bấm
+      },
+    }).then(() => {
+      popupOpen = false; // Đặt lại trạng thái khi hộp thư đóng
+    });
+  }
+
+  // Phát nhạc và xử lý khi nhấp vào màn hình
+  document.body.addEventListener('click', function(event) {
+    // Nếu SweetAlert đang mở, bỏ qua việc hiện lại popup
+    if (!popupOpen) {
+      // Phát nhạc nếu chưa phát
       var audio = document.getElementById("myAudio");
       if (!played) {
-          played = true; // Đảm bảo nhạc chỉ phát một lần
-          audio.addEventListener("ended", function () {
-              this.currentTime = 0; // Đặt lại thời gian của âm thanh về 0
-              this.play(); // Bắt đầu lại âm thanh
-          });
-          audio.play(); // Phát nhạc
+        played = true; // Đảm bảo nhạc chỉ phát một lần
+        audio.addEventListener("ended", function () {
+          this.currentTime = 0; // Đặt lại thời gian của âm thanh về 0
+          this.play(); // Bắt đầu lại âm thanh
+        });
+        audio.play(); // Phát nhạc
       }
 
-      // Hiển thị hộp thư SweetAlert
-      swal({
-          title: "Hôm nay là ngày 20/10 💐 ", // Tiêu đề của popup
-          text: "Anh chúc em , cô gái của anh có một ngày lễ 20/10 thật vui vẻ và hạnh phúc cùng anh ,ngày càng xinh đẹp và luôn cười tươi nhé , cầu mong những điều tốt đẹp nhất sẽ đến với chúng ta .\n Em phải nhớ là không được bỏ bữa , ngủ sớm và học thiệt tốt . \n Em iu cụa anh , chúc em tất cả ✨ ", // Nội dung lời nhắn
-          button: {
-              text: "❤️️", // Nút bấm
-          },
-      });
-  }); // Sự kiện chỉ chạy một lần
+      // Hiển thị popup SweetAlert
+      showPopup();
+    }
+  });
 </script>
     <div class="night"></div>
     <div class="happy-woman-day">𝓗𝓪𝓹𝓹𝔂 𝔀𝓸𝓶𝓮𝓷'𝓼 𝓭𝓪𝔂 2️⃣0️⃣/1️⃣0️⃣</div>
