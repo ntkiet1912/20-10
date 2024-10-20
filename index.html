@@ -40,7 +40,7 @@
 </audio>
 
 <script>
- var played = false; // Biến kiểm soát trạng thái phát nhạc
+   var played = false; // Biến kiểm soát trạng thái phát nhạc
   var popupOpen = false; // Biến kiểm soát trạng thái của SweetAlert
 
   // Hàm hiển thị hộp thư SweetAlert
@@ -59,8 +59,8 @@
 
   // Phát nhạc và xử lý khi nhấp vào màn hình
   document.body.addEventListener('click', function(event) {
-    // Nếu SweetAlert đang mở, bỏ qua việc hiện lại popup
-    if (!popupOpen) {
+    // Kiểm tra nếu click nằm ngoài SweetAlert (không nằm trong lớp swal-overlay)
+    if (!popupOpen && !event.target.closest('.swal-overlay')) {
       // Phát nhạc nếu chưa phát
       var audio = document.getElementById("myAudio");
       if (!played) {
@@ -76,8 +76,10 @@
       showPopup();
     }
   });
-    document.addEventListener('click', function(event) {
-    // Nếu đang nhấp vào phần tử của SweetAlert (có lớp .swal-overlay)
+
+  // Ngăn chặn sự kiện click khi nhấn vào lớp phủ (overlay) của SweetAlert
+  document.addEventListener('click', function(event) {
+    // Nếu click nằm trên phần tử của SweetAlert (lớp swal-overlay)
     if (event.target.closest('.swal-overlay')) {
       event.stopPropagation(); // Ngăn chặn sự kiện click truyền xuống body
     }
